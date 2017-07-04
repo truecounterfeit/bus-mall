@@ -3,22 +3,24 @@
 <head>
       <title>Bus Mall</title>
       <link rel = "stylesheet" type = "text/css" href = "style.css" >
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 </head>
   <body>
     <h1>BusMall</h1>
     <p>Please select one image.</p>
-    <!--<img src = "./assets/bag.jpg" class = "medium">
-    <img src = "./assets/banana.jpg" class = "medium">
-    <img src = "./assets/bathroom.jpg" class = "medium">
-    <hr>
-    <h1>Results</h1>-->
-    <div class = "first-image" width = "100px" ></div>
-    <!--<div class = "second-image"></div>
-    <div class = "third-image"></div>-->
 
+
+    <div id = "first-image" ></div>
+    <div id = "second-image"></div>
+    <div id = "third-image"></div>
+
+
+  <ul id = "results">
+  </ul>
+
+  <div id="chart-div">
+    <canvas id="my-chart"></canvas>
+  </div>
     <script src="app.js"></script>
-
-
-
   </body>
 </html>
