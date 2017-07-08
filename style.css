@@ -1,0 +1,41 @@
+body {
+  background-color: pink;
+  width: 1000px;
+}
+/* img.medium {
+  width: 300px;
+  height: 300px;
+}*/
+
+p, h1 {
+  text-align: center;
+}
+
+.first-image, .second-image, .third-image {
+  width: 300px;
+  max-width: 300px;
+  min-width: 300px;
+  float: left;
+  margin: 10px;
+
+  border: 2px solid black;
+}
+img {
+  width: 300px;
+  height: 300px;
+  max-width: 300px;
+  min-width: 300px;
+  max-height: 300px;
+  min-height: 300px;
+}
+#chart-div {
+  width: 100%;
+  min-width: 400px;
+}
+#my-chart {
+  width: 100%;
+}
+ul {
+  margin: 10px;
+  float:left;
+}
