@@ -29,8 +29,11 @@ img {
   min-height: 300px;
 }
 #chart-div {
-  width: 50%;
+  width: 100%;
   min-width: 400px;
+}
+#my-chart {
+  width: 100%;
 }
 ul {
   margin: 10px;

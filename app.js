@@ -40,11 +40,10 @@ var imagesArray = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, ct
 
 function randomImage() {
   //for (var i = 0; i < displayedImagesArray.length; i++)
-  var x  = imagesArray[Math.floor(Math.random() * imagesArray.length)];
-  // console.log(x);
-  return x;
+  return imagesArray[Math.floor(Math.random() * imagesArray.length)];
 }
 
+// displayImages();
 // declare global variables
 
 var displayedRandomImage, displayedRandomImage2, displayedRandomImage3;
@@ -96,56 +95,57 @@ function displayImages() {
   lastdisplayedRandomImage2 = displayedRandomImage2;
   lastdisplayedRandomImage3 = displayedRandomImage3;
 
-  var firstImgEl = document.getElementById('first-image')[0];
+  var firstImgEl = document.getElementById('0');
   firstImgEl.innerHTML = '';
   var imageDataEl = document.createElement('IMG');
   imageDataEl.setAttribute('src', displayedRandomImage.path);
+  imageDataEl.setAttribute('id', 0);
   firstImgEl.appendChild(imageDataEl);
   // console.log(firstImgEl);
 
-  var secondImgEl = document.getElementById('second-image')[0];
+  var secondImgEl = document.getElementById('1');
   secondImgEl.innerHTML = '';
   var imageDataEl = document.createElement('IMG');
   imageDataEl.setAttribute('src', displayedRandomImage2.path);
+  imageDataEl.setAttribute('id', 1);
   secondImgEl.appendChild(imageDataEl);
   // console.log(secondImgEl);
 
-  var thirdImgEl = document.getElementById('third-image')[0];
+  var thirdImgEl = document.getElementById('2');
   thirdImgEl.innerHTML = '';
   var imageDataEl = document.createElement('IMG');
   imageDataEl.setAttribute('src', displayedRandomImage3.path);
+  imageDataEl.setAttribute('id', 2);
   thirdImgEl.appendChild(imageDataEl);
   // console.log(thirdImgEl);
+  displayedRandomImageA = [displayedRandomImage, displayedRandomImage2, displayedRandomImage3];
 }
 
 // event listener for clicks
 
 var idArray = ['first-image','second-image', 'third-image'];
 
-var firstImgEl = document.getElementById('first-image')[0];
-firstImgEl.addEventListener('click', function(event){
-  event.target.idArray[i].length}, false);
+var displayedRandomImageA;
+console.log(displayedRandomImageA);
 
-var secondImgEl = document.getElementById('second-image')[0];
-secondImgEl.addEventListener('click', function(event){}, false);
+var firstImgEl = document.getElementById('0');
+firstImgEl.addEventListener('click', runClicks);
 
-var thirdImgEl = document.getElementById('third-image')[0];
-thirdImgEl.addEventListener('click', function(event){}, false);
+var secondImgEl = document.getElementById('1');
+secondImgEl.addEventListener('click', runClicks);
+
+var thirdImgEl = document.getElementById('2');
+thirdImgEl.addEventListener('click', runClicks);
 
 //call display function click event that refreshes the page with new images and counts shown images
 
 function runClicks(event) {
-  // if (event.target.id == 'first-image') {
-  //   displayedRandomImage.clicked += 1;
-  // } else if (event.target.id == 'second-image') {
-  //   displayedRandomImage2.clicked += 1;
-  // } else (event.target.id == 'third-image') {
-  //   displayedRandomImage3.clicked += 1;
-  // }
+  event.preventDefault();
+  console.log(totalClicks);
+  displayedRandomImageA[event.target.id].clicked += 1;
+  displayImages();
 
   console.log(imagesArray);
-
-  displayImages();
 
   totalClicks ++;
 
@@ -154,38 +154,58 @@ function runClicks(event) {
   if (totalClicks == 25) {
     console.log(totalClicks);
     results();
-  } if (totalClicks > 25) {
-    location.reload();
+    // var removeEl = document.getElementById('uniqueID');
+    // removeEl.removeChild(removeEl.lastChild);
+    var firstImgEl = document.getElementById('0');
+    firstImgEl.removeEventListener('click', runClicks);
+
+    var secondImgEl = document.getElementById('1');
+    secondImgEl.removeEventListener('click', runClicks);
+
+    var thirdImgEl = document.getElementById('2');
+    thirdImgEl.removeEventListener('click', runClicks);
   }
-}
-
-runClicks();
-
 //print results
-function results() {
+  function results() {
+// list data
+    for (var i = 0; i < imagesArray.length; i ++) {
+      var resultsData = imagesArray[i].name + ' received ' + imagesArray[i].clicked + ' votes!';
+      // console.log(resultsData);
 
-  for (var i = 0; i < imagesArray.length; i ++) {
-    var resultsData = imagesArray[i].name + ' received ' + imagesArray[i].clicked + ' votes!';
-    // console.log(resultsData);
-
-    var resultsElement = document.createElement('li');
-    resultsElement.textContent = resultsData;
-    var listEl = document.getElementById('results');
-    listEl.appendChild(resultsElement);
-
+      var resultsElement = document.createElement('li');
+      resultsElement.textContent = resultsData;
+      var listEl = document.getElementById('results');
+      listEl.appendChild(resultsElement);
+    }
     var context = document.getElementById('my-chart').getContext('2d');
 
-    var dataSet = [7, 8, 9, 2];
-    var itemNames = ['Shark', 'Tank', 'Horse', 'Candy'];
-    var chartColors = ['blue','blue','blue','blue', ];
+  // chart for loop array
+
+    //itemNames
+    var chartNames = [];
+    for (var i = 0; i < imagesArray.length; i++) {
+      chartNames.push(imagesArray[i].name);
+    }
+
+    //dataSet
+    var chartData = [];
+    for (var i = 0; i < imagesArray.length; i++) {
+      chartData.push(imagesArray[i].clicked);
+    }
+
+  //  var dataSet = chartData;
+  //  var itemNames = chartNames;
+    var chartColors = 'blue';
+    console.log(chartNames);
+    console.log(chartData);
 
     var myChart = new Chart(context, {
       type: 'bar',
       data: {
-        labels: itemNames,
+        labels: chartNames,
         datasets: [{
           label: '# of Votes',
-          data: dataSet,
+          data: chartData,
           backgroundColor: chartColors
         }]
       },
@@ -201,3 +221,4 @@ function results() {
     });
   }
 }
+displayImages();
